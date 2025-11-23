@@ -1,226 +1,44 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>XOXO</title>
-    <style>
-        body {
-            background-color: black;
-            color: white;
-            font-family: Arial, sans-serif;
-            text-align: center;
-        }
-
-        h1 {
-            margin: 30px auto 30px auto;
-        }
-
-        table {
-            border-collapse: collapse;
-            margin: auto;
-            border: 1px solid white;
-        }
-
-        tr td {
-            border: 1px solid white;
-            padding: 20px;
-            width: 60px;
-            height: 60px;
-            font-size: 24px;
-            text-align: center;
-            cursor: pointer;
-        }
-
-        button {
-            background-color: black;
-            color: white;
-            border: 1px solid white;
-            padding: 10px 20px;
-            cursor: pointer;
-            margin-top: 15px;
-        }
-
-        button:hover {
-            background-color: white;
-            color: black;
-        }
-
-        .displayMove {
-            margin-top: 30px;
-            font-size: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            margin-left: -150px;
-        }
-
-        table {
-            border-collapse: collapse;
-        }
-
-        td,
-        th {
-            border: 1px solid black;
-            padding: 10px;
-        }
-
-        .scoreBoard{
-            display: flex;
-            margin: auto;
-            justify-content: center;
-            align-items: center;
-            gap: 30px;
-        }
-        img{width: 70px;}
-        .scoreX, .scoreO{
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-
-        }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="css/styles.css" rel="stylesheet">
 </head>
 
-<body>
-    <h1>TIC-TAC-TOE</h1>
+<body class="page-bg">
 
-    <div class="scoreBoard">
-        <div class="scoreX"></div>
-        <div class="scoreO"></div>
+    <h1 class="title">TIC-TAC-TOE</h1>
+
+    <div class="score-board">
+        <div class="score scoreX"></div>
+        <div class="score scoreO"></div>
     </div>
 
-    <table>
+    <table class="border-collapse m-auto border-none">
         <tr>
-            <td onclick="move(0, 0, event)"></td>
-            <td onclick="move(0, 1, event)"></td>
-            <td onclick="move(0, 2, event)"></td>
+            <td class="tic-cell border-b-r" data-pos="0-0"></td>
+            <td class="tic-cell border-b-r" data-pos="0-1"></td>
+            <td class="tic-cell border-b-only" data-pos="0-2"></td>
         </tr>
-
         <tr>
-            <td onclick="move(1, 0, event)"></td>
-            <td onclick="move(1, 1, event)"></td>
-            <td onclick="move(1, 2, event)"></td>
+            <td class="tic-cell border-b-r" data-pos="1-0"></td>
+            <td class="tic-cell border-b-r" data-pos="1-1"></td>
+            <td class="tic-cell border-b-only" data-pos="1-2"></td>
         </tr>
-
         <tr>
-            <td onclick="move(2, 0, event)"></td>
-            <td onclick="move(2, 1, event)"></td>
-            <td onclick="move(2, 2, event)"></td>
+            <td class="tic-cell border-r-only" data-pos="2-0"></td>
+            <td class="tic-cell border-r-only" data-pos="2-1"></td>
+            <td class="tic-cell" data-pos="2-2"></td>
         </tr>
     </table>
 
-    <div class="displayMove"></div>
+    <div class="display-move displayMove">Turns: <img class='w-[70px]' src='asset/x-icon.jpg'></div>
     <p class="result"></p>
 
-    <button onclick="restart()">Restart</button>
-    <button onclick="reset();">Reset Game</button>
+    <button class="btn" id="restartBtn">Restart</button>
+    <button class="btn" id="resetBtn">Reset Game</button>
 
-    <script>
-        let playerMove = 'X';
-        let gameOver = false;
-        let scoreX = 0;
-        let scoreO = 0;
-
-        if (localStorage.getItem("scoreX")) scoreX = parseInt(localStorage.getItem("scoreX"));
-        if (localStorage.getItem("scoreO")) scoreO = parseInt(localStorage.getItem("scoreO"));
-
-        document.querySelector('.scoreX').innerHTML = `<img src='asset/x-icon.jpg'> <p>Wins: ${scoreX}</p>`;
-        document.querySelector('.scoreO').innerHTML = `<img src='asset/o-icon.jpg'> <p>Wins: ${scoreO}</p>`;
-
-        let gridBox = [
-            ['', '', ''],
-            ['', '', ''],
-            ['', '', '']
-        ];
-
-        function move(row, col, event) {
-            if (gameOver) {
-                alert(`Game Over! ${playerMove} wins. Click 'Restart' to play again.`);
-                return;
-            }
-
-            if (gridBox[row][col] === '') {
-                gridBox[row][col] = playerMove;
-                event.target.innerHTML = playerMove;
-
-                if (winStatus(row, col)) {
-                    event.target.innerHTML = playerMove;
-                    document.querySelector('.result').innerHTML = `${playerMove} Wins!`;
-
-                    if (playerMove === 'X') {
-                        scoreX++;
-                        document.querySelector('.scoreX').innerHTML = `X Wins: ${scoreX}`;
-                    } else if (playerMove === 'O') {
-                        scoreO++;
-                        document.querySelector('.scoreO').innerHTML = `O Wins: ${scoreO}`;
-                    }
-
-                    localStorage.setItem("scoreX", scoreX);
-                    localStorage.setItem("scoreO", scoreO);
-
-                    gameOver = true;
-                } else {
-                    playerMove = playerMove === 'X' ? 'O' : 'X';
-                    document.querySelector('.displayMove').innerHTML = `Turns: <img src='asset/${playerMove}-icon.jpg'>`;
-                }
-            } else {
-                alert('The selected box is filled!');
-            }
-        }
-
-        function winStatus(row, col) {
-            if (
-                gridBox[row][0] === playerMove &&
-                gridBox[row][1] === playerMove &&
-                gridBox[row][2] === playerMove
-            ) return true;
-
-            if (
-                gridBox[0][col] === playerMove &&
-                gridBox[1][col] === playerMove &&
-                gridBox[2][col] === playerMove
-            ) return true;
-
-            if (
-                gridBox[0][0] === playerMove &&
-                gridBox[1][1] === playerMove &&
-                gridBox[2][2] === playerMove
-            ) return true;
-
-            if (
-                gridBox[2][0] === playerMove &&
-                gridBox[1][1] === playerMove &&
-                gridBox[0][2] === playerMove
-            ) return true;
-
-            return false;
-        }
-
-        function restart() {
-            gridBox = [
-                ['', '', ''],
-                ['', '', ''],
-                ['', '', '']
-            ];
-            gameOver = false;
-            playerMove = 'X';
-            document.querySelector('.result').innerHTML = '';
-            document.querySelector('.displayMove').innerHTML = `Next Move: ${playerMove}`;
-
-            let eachBox = document.querySelectorAll("td");
-            eachBox.forEach(box => box.innerHTML = '');
-
-            document.querySelector('.scoreX').innerHTML = `<img src='asset/x-icon.jpg'> <p>Wins: ${scoreX}</p>`;
-            document.querySelector('.scoreO').innerHTML = `<img src='asset/o-icon.jpg'> <p>Wins: ${scoreO}</p>`;
-        }
-
-        function reset(){
-            scoreO = 0;
-            scoreX = 0;
-            restart();
-        }
-    </script>
+    <script src="js/script.js"></script>
 </body>
 </html>
