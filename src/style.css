@@ -37,7 +37,7 @@
 }
 
 .btn {
-    @apply pl-4 pt-2 pr-4 pb-2 border border-white border-solid hover:bg-white hover:text-black transition mb-4;
+    @apply pl-4 pt-2 pr-4 pb-2 border border-white border-solid hover:bg-white hover:text-black transition mb-4 mt-8;
 }
 
 .result {
