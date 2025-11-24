@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+.page-bg {
+    @apply text-center bg-black text-white min-h-screen;
+}
+
+.title {
+    @apply mt-16 text-4xl font-black;
+}
+
+.score-board {
+    @apply flex mb-5;
+}
+
+.score {
+    @apply flex m-auto justify-center items-center gap-2;
+}
+
+.tic-cell {
+    @apply p-12 cursor-pointer text-4xl font-bold;
+}
+
+.border-b-r {
+    @apply border-b border-r border-white;
+}
+
+.border-b-only {
+    @apply border-b border-white;
+}
+
+.border-r-only {
+    @apply border-r border-white;
+}
+
+.display-move {
+    @apply flex text-center mt-8 justify-center items-center mb-8 text-xl font-semibold gap-2;
+}
+
+.btn {
+    @apply pl-4 pt-2 pr-4 pb-2 border border-white border-solid hover:bg-white hover:text-black transition mb-4;
+}
+
+.result {
+    @apply text-2xl font-bold mt-4;
+}

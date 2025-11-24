@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>XOXO</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="css/styles.css" rel="stylesheet">
+    <html>
+      <head>
+        <title>tic-tac-toe</title>
+        <link href="/src/style.css" rel="stylesheet">
+        <link rel="shortcut icon" href="/vite.svg" type="image/x-icon">
 </head>
 
 <body class="page-bg">
@@ -22,7 +22,7 @@
             <td class="tic-cell border-b-only" data-pos="0-2"></td>
         </tr>
         <tr>
-            <td class="tic-cell\ border-b-r" data-pos="1-0"></td>
+            <td class="tic-cell border-b-r" data-pos="1-0"></td>
             <td class="tic-cell border-b-r" data-pos="1-1"></td>
             <td class="tic-cell border-b-only" data-pos="1-2"></td>
         </tr>
@@ -33,12 +33,12 @@
         </tr>
     </table>
 
-    <div class="display-move displayMove">Turns: <img class='w-[70px]' src='asset/x-icon.jpg'></div>
+    <div class="display-move displayMove">Turns: <img class='w-[70px]' src='/src/asset/x-icon.jpg'></div>
     <p class="result"></p>
 
     <button class="btn" id="restartBtn">Restart</button>
     <button class="btn" id="resetBtn">Reset Game</button>
 
-    <script src="js/script.js"></script>
+    <script type="module" src="/src/main.js"></script>
 </body>
 </html>
